@@ -1,0 +1,7 @@
+*.o
+*.a
+.DS_Store
+*.out
+*.txt
+.vscode
+pipex
