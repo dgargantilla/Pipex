@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   ft_free_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 11:58:33 by dgargant          #+#    #+#             */
-/*   Updated: 2024/09/03 09:22:45 by dgargant         ###   ########.fr       */
+/*   Created: 2024/09/06 09:33:14 by dgargant          #+#    #+#             */
+/*   Updated: 2024/09/06 09:34:52 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**get_path(char **env)
+void	*ft_free_array(char **array)
 {
-	char	*path;
+	size_t	i;
 
-	while (*env)
+	i = 0;
+	while (array[i] != NULL)
 	{
-		if (ft_strnstr(*env, "PATH=", 5))
-		{
-			path = ft_strdup(*env + 5);
-			break;
-		}	
-		env++;
+		free(array[i]);
+		i++;
 	}
-	return (ft_split(path, ':'));
+	free(array);
+	return (NULL);
 }
-

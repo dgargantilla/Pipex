@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:04:44 by dgargant          #+#    #+#             */
-/*   Updated: 2024/09/03 12:27:52 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/09/18 11:33:56 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 void	print_error(char *error)
 {
-		ft_printf("Error: %s", error);
+		ft_printf(RED"Error: %s\n"RESET, error);
 		exit(-1);
 }

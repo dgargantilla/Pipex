@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 10:03:46 by dgargant          #+#    #+#             */
-/*   Updated: 2024/09/03 12:11:49 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:28:25 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,9 @@ int		ft_puthexadecimal_uppercase(unsigned int n);
 int		ft_putpadress(size_t n);
 
 size_t	ft_strlen(const char *s);
+
+void	*ft_free_array(char **array);
+
+char	*ft_strjoin(const char *s1, const char *s2);
 
 #endif

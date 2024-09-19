@@ -6,7 +6,7 @@
 #    By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/27 10:13:27 by dgargant          #+#    #+#              #
-#    Updated: 2024/09/03 12:30:23 by dgargant         ###   ########.fr        #
+#    Updated: 2024/09/18 11:06:38 by dgargant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ YELLOW =		\033[0;93m
 RESET=			\033[0m
 
 SRCS :=	 $(addprefix sources/, \
-	pipex.c	get_path.c	utils.c)
+	pipex.c	utils_path.c	utils.c)
 
 OBJS = $(SRCS:.c=.o)
 

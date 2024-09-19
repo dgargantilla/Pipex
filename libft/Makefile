@@ -6,7 +6,7 @@
 #    By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/29 09:49:30 by dgargant          #+#    #+#              #
-#    Updated: 2024/09/03 12:20:43 by dgargant         ###   ########.fr        #
+#    Updated: 2024/09/17 14:28:41 by dgargant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ HEADERS:= -I ./includes
 
 SRCS :=	ft_strnstr.c	ft_strdup.c	ft_split.c ft_printf.c	ft_putchar.c\
 ft_puthexadecimal.c	ft_putnbr.c	ft_putpadress.c	ft_putstr.c	ft_putunbr.c\
-ft_strlen.c\
+ft_strlen.c	ft_free_array.c	ft_strjoin.c\
 
 OBJS = $(SRCS:.c=.o)
 
