@@ -6,7 +6,7 @@
 #    By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/27 10:13:27 by dgargant          #+#    #+#              #
-#    Updated: 2024/09/18 11:06:38 by dgargant         ###   ########.fr        #
+#    Updated: 2024/09/24 15:12:34 by dgargant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ HEADERS:= -I ./includes
 CFLAGS = -Wall -Werror -Wextra -g3 $(HEADERS)
 #valgrind --leak-check=full --show-leak-kinds=all
 #CFLAGS = -Wall -Werror -Wextra $(HEADERS) 
-#valgrind --trace-children=yes --track-fds=yes --leak-check=full 
+#valgrind --trace-children=yes --track-fds=yes --leak-check=full
 #valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all 
 
 GPATH = libft

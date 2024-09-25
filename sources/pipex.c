@@ -6,34 +6,98 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:47:31 by dgargant          #+#    #+#             */
-/*   Updated: 2024/09/19 09:48:25 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:07:49 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-//void	first_child_proces()
-//{
-//	
-//}
+void	child_proc_one(int *pipe_fd, char **argv, char **envp)
+{
+	char	**paths;
+	char	**splited_argv;
+	char	*real_path;
+	int		fd;
 
+	paths = get_path(envp);
+	splited_argv = ft_split(argv[2], ' ');
+	real_path = set_comand_path(paths, splited_argv[0]);
+	ft_free_array(paths);
+	close(pipe_fd[FD_RD]);
+	fd = open(argv[1], O_RDONLY, 0777);
+	if (fd < 0)
+		print_error("Open error");
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+	dup2(pipe_fd[FD_WR], STDOUT_FILENO);
+	close(pipe_fd[FD_WR]);
+	execute_path(splited_argv, real_path, envp);
+	ft_free_array(splited_argv);
+	free(real_path);
+}
+void	child_proc_two(int *pipe_fd, char **argv, char **envp)
+{
+	char	**paths;
+	char	**splited_argv;
+	char	*real_path;
+	int		fd;
+
+	paths = get_path(envp);
+	splited_argv = ft_split(argv[3], ' ');
+	real_path = set_comand_path(paths, splited_argv[0]);
+	ft_free_array(paths);
+	fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (fd < 0)
+		print_error("Open error");
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+	dup2(pipe_fd[FD_RD], STDIN_FILENO);
+	close(pipe_fd[FD_RD]);
+	execute_path(splited_argv, real_path, envp);
+	ft_free_array(splited_argv);
+	free(real_path);
+}
+
+void	parent_proc(char **argv,int *pipe_fd ,char **envp, int status)
+{
+	pid_t	pid_one;
+	pid_t	pid_two;
+
+	pid_one = fork();
+	if (pid_one == -1)
+		exit(-1);
+	else if (pid_one == 0)
+		child_proc_one(pipe_fd, argv, envp);
+	else if (pid_one > 0)
+	{
+		pid_two = fork();
+		close(pipe_fd[FD_WR]);
+		if (pid_two == -1)
+			exit(-1);
+		else if (pid_two == 0)
+			child_proc_two(pipe_fd, argv, envp);
+		else if (pid_two > 0) 
+		{
+			close(pipe_fd[FD_RD]);
+			waitpid(pid_one, &status, 0);
+			waitpid(pid_two, &status, 0);
+		}
+	}
+}
 
 int	main(int argc, char **argv, char **envp)
 {
-	// int	fd[2];
-	// pid_t pid;
-	//int i = 0;
-	char **paths;
-	char *real_path;
-	char **splited_argv;
+	int		pipe_fd[2];
+	int		status;
 
-	if (argc != 2)
+	status = 0;
+	if (argc != 5)
 		print_error("The number of arguments is invalid");
-	else if (!*envp)
-		print_error("Environment variables not found");
-	else
+	/*else if (!*envp)
+		print_error("Environment variables not found");*/
+	else if (argc == 5)
 	{
-		paths = get_path(envp);
+		/*paths = get_path(envp);
 		for(int i = 0; paths[i] != NULL ;i++)
 			ft_printf("%s\n", paths[i]);
 		ft_printf(GREEN"\n---------------------PATH---------------\n\n"RESET);
@@ -43,7 +107,10 @@ int	main(int argc, char **argv, char **envp)
 		execute_path(splited_argv, real_path, envp);
 		ft_free_array(splited_argv);
 		ft_free_array(paths);
-		free(real_path);
+		free(real_path);*/
+		if (pipe(pipe_fd) == -1)
+			exit(-1);
+		parent_proc(argv, pipe_fd,envp, status);
 	}
-	return (0);
+	return (status);
 }
