@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:45:04 by dgargant          #+#    #+#             */
-/*   Updated: 2024/08/29 12:45:06 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:04:51 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ char	**ft_split(char const *s, char c)
 	end = 0;
 	str = (char *)s;
 	array = NULL;
+	if (!str)
+		return (NULL);
 	return (split(str, array, c, end));
 }
 

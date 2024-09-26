@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 09:33:14 by dgargant          #+#    #+#             */
-/*   Updated: 2024/09/06 09:34:52 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:41:12 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	*ft_free_array(char **array)
 	size_t	i;
 
 	i = 0;
+	if (!array)
+		return (NULL);
 	while (array[i] != NULL)
 	{
 		free(array[i]);

@@ -6,15 +6,14 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:04:44 by dgargant          #+#    #+#             */
-/*   Updated: 2024/09/18 11:33:56 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:50:11 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-
 void	print_error(char *error)
 {
-		ft_printf(RED"Error: %s\n"RESET, error);
-		exit(-1);
+	ft_printf(RED"Error: %s\n"RESET, error);
+	exit(-1);
 }

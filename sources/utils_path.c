@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:58:33 by dgargant          #+#    #+#             */
-/*   Updated: 2024/09/25 15:24:41 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:06:09 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	**get_path(char **env)
 {
 	char	*path;
 	char	**splited;
-	
+
 	if (env == NULL)
 		return (NULL);
 	path = NULL;
@@ -25,8 +25,8 @@ char	**get_path(char **env)
 		if (ft_strnstr(*env, "PATH=", 5))
 		{
 			path = ft_strdup(*env + 5);
-			break;
-		}	
+			break ;
+		}
 		env++;
 	}
 	splited = ft_split(path, ':');
@@ -34,16 +34,16 @@ char	**get_path(char **env)
 	return (splited);
 }
 
-char *set_comand_path(char **splited_path, char *comand)
+char	*set_comand_path(char **splited_path, char *comand)
 {
-	int 	i;
-	char 	*real_path;
+	int		i;
+	char	*real_path;
 	char	*aux_path;
 
-	i =  0;
+	i = 0;
 	if (splited_path == NULL && access(comand, 0) == 0)
-		return(ft_strdup(comand));
-	else if(splited_path != NULL)
+		return (ft_strdup(comand));
+	else if (splited_path != NULL)
 	{
 		while (splited_path[i])
 		{
@@ -60,7 +60,6 @@ char *set_comand_path(char **splited_path, char *comand)
 	}
 	return (ft_strdup(comand));
 }
-
 
 void	execute_path(char **splited_arg, char *real_path, char **envp)
 {
