@@ -6,7 +6,7 @@
 #    By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/27 10:13:27 by dgargant          #+#    #+#              #
-#    Updated: 2024/09/24 15:12:34 by dgargant         ###   ########.fr        #
+#    Updated: 2024/09/27 10:32:25 by dgargant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ CFLAGS = -Wall -Werror -Wextra -g3 $(HEADERS)
 #valgrind --leak-check=full --show-leak-kinds=all
 #CFLAGS = -Wall -Werror -Wextra $(HEADERS) 
 #valgrind --trace-children=yes --track-fds=yes --leak-check=full
-#valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all 
+#valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all
+# valgrind --track-fds=yes --trace-children=yes --leak-check=full 
+# --show-leak-kinds=all ./pipex README.md ls ls salida.txt
 
 GPATH = libft
 
@@ -41,7 +43,7 @@ SRCS :=	 $(addprefix sources/, \
 
 OBJS = $(SRCS:.c=.o)
 
-$(NAME) : $(OBJS) 
+$(NAME) : $(OBJS)
 	make _libft $(LIBFT_PATH)
 	make print_title
 	@echo "$(GREEN)Creando ejecutable"

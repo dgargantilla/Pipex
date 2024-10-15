@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:47:31 by dgargant          #+#    #+#             */
-/*   Updated: 2024/09/26 14:49:34 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:10:55 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	child_proc_one(int *pipe_fd, char **argv, char **envp)
 	dup2(pipe_fd[FD_WR], STDOUT_FILENO);
 	close(pipe_fd[FD_WR]);
 	execute_path(splited_argv, real_path, envp);
-	ft_free_array(splited_argv);
-	free(real_path);
 }
 
 void	child_proc_two(int *pipe_fd, char **argv, char **envp)
@@ -55,8 +53,6 @@ void	child_proc_two(int *pipe_fd, char **argv, char **envp)
 	dup2(pipe_fd[FD_RD], STDIN_FILENO);
 	close(pipe_fd[FD_RD]);
 	execute_path(splited_argv, real_path, envp);
-	ft_free_array(splited_argv);
-	free(real_path);
 }
 
 void	parent_proc(char **argv, int *pipe_fd, char **envp, int status)

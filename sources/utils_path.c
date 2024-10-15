@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:58:33 by dgargant          #+#    #+#             */
-/*   Updated: 2024/09/26 15:06:09 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:49:48 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ void	execute_path(char **splited_arg, char *real_path, char **envp)
 	{
 		execve(real_path, splited_arg, envp);
 		perror(RED"Error: Failed execution"RESET);
+		exit(127);
+	}
+	else
+	{
+		perror(RED"zsh: comand not found"RESET);
 		exit(127);
 	}
 }
