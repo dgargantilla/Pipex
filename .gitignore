@@ -4,4 +4,6 @@
 *.out
 *.txt
 .vscode
+ls
+test.c
 pipex
