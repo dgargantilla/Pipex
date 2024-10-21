@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:47:31 by dgargant          #+#    #+#             */
-/*   Updated: 2024/09/27 10:10:55 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:09:10 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	child_proc_one(int *pipe_fd, char **argv, char **envp)
 	close(pipe_fd[FD_RD]);
 	fd = open(argv[1], O_RDONLY, 0777);
 	if (fd < 0)
+	{
+		close(pipe_fd[FD_WR]);
 		print_error("Open error");
+	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 	dup2(pipe_fd[FD_WR], STDOUT_FILENO);
@@ -47,7 +50,10 @@ void	child_proc_two(int *pipe_fd, char **argv, char **envp)
 	ft_free_array(paths);
 	fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd < 0)
+	{
+		close(pipe_fd[FD_RD]);
 		print_error("Open error");
+	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	dup2(pipe_fd[FD_RD], STDIN_FILENO);
