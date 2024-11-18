@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:58:33 by dgargant          #+#    #+#             */
-/*   Updated: 2024/09/30 09:49:48 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/11/18 12:11:12 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	execute_path(char **splited_arg, char *real_path, char **envp)
 	}
 	else
 	{
+		ft_free_array(splited_arg);
+		free(real_path);
 		perror(RED"zsh: comand not found"RESET);
 		exit(127);
 	}
