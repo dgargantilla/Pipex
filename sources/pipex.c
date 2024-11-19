@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:47:31 by dgargant          #+#    #+#             */
-/*   Updated: 2024/10/21 10:09:10 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:28:06 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	child_proc_one(int *pipe_fd, char **argv, char **envp)
 	if (fd < 0)
 	{
 		close(pipe_fd[FD_WR]);
-		print_error("Open error");
+		perror(RED"Error: Open error"RESET);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
@@ -52,7 +52,7 @@ void	child_proc_two(int *pipe_fd, char **argv, char **envp)
 	if (fd < 0)
 	{
 		close(pipe_fd[FD_RD]);
-		print_error("Open error");
+		perror(RED"Error: Open error"RESET);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
@@ -95,7 +95,7 @@ int	main(int argc, char **argv, char **envp)
 
 	status = 0;
 	if (argc != 5)
-		print_error("The number of arguments is invalid");
+		perror(RED"Error: The number of arguments is invalid"RESET);
 	else if (argc == 5)
 	{
 		if (pipe(pipe_fd) == -1)
