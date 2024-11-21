@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:47:31 by dgargant          #+#    #+#             */
-/*   Updated: 2024/11/19 11:28:06 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:01:03 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ void	child_proc_one(int *pipe_fd, char **argv, char **envp)
 	real_path = set_comand_path(paths, splited_argv[0]);
 	ft_free_array(paths);
 	close(pipe_fd[FD_RD]);
-	fd = open(argv[1], O_RDONLY, 0777);
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
-		close(pipe_fd[FD_WR]);
 		perror(RED"Error: Open error"RESET);
+		close(pipe_fd[FD_WR]);
+		exit(-1);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
@@ -53,6 +54,7 @@ void	child_proc_two(int *pipe_fd, char **argv, char **envp)
 	{
 		close(pipe_fd[FD_RD]);
 		perror(RED"Error: Open error"RESET);
+		exit(1);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
