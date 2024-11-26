@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:47:31 by dgargant          #+#    #+#             */
-/*   Updated: 2024/11/21 11:01:03 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/11/26 10:25:58 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	child_proc_one(int *pipe_fd, char **argv, char **envp)
 	{
 		perror(RED"Error: Open error"RESET);
 		close(pipe_fd[FD_WR]);
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
@@ -54,7 +54,7 @@ void	child_proc_two(int *pipe_fd, char **argv, char **envp)
 	{
 		close(pipe_fd[FD_RD]);
 		perror(RED"Error: Open error"RESET);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
@@ -70,7 +70,7 @@ void	parent_proc(char **argv, int *pipe_fd, char **envp, int status)
 
 	pid_one = fork();
 	if (pid_one == -1)
-		exit(-1);
+		exit(EXIT_FAILURE);
 	else if (pid_one == 0)
 		child_proc_one(pipe_fd, argv, envp);
 	else if (pid_one > 0)
@@ -78,7 +78,7 @@ void	parent_proc(char **argv, int *pipe_fd, char **envp, int status)
 		pid_two = fork();
 		close(pipe_fd[FD_WR]);
 		if (pid_two == -1)
-			exit(-1);
+			exit(EXIT_FAILURE);
 		else if (pid_two == 0)
 			child_proc_two(pipe_fd, argv, envp);
 		else if (pid_two > 0)
@@ -101,7 +101,10 @@ int	main(int argc, char **argv, char **envp)
 	else if (argc == 5)
 	{
 		if (pipe(pipe_fd) == -1)
-			exit(-1);
+		{
+			perror(RED"Error: creating the pipe failed"RESET);	
+			exit(EXIT_FAILURE);
+		}
 		parent_proc(argv, pipe_fd, envp, status);
 	}
 	return (status);
