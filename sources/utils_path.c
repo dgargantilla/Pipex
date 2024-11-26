@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 11:58:33 by dgargant          #+#    #+#             */
-/*   Updated: 2024/11/18 12:11:12 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:43:44 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*set_comand_path(char **splited_path, char *comand)
 	char	*real_path;
 	char	*aux_path;
 
+	if (!comand || !*comand)
+		return (NULL);
 	i = 0;
 	if (splited_path == NULL && access(comand, 0) == 0)
 		return (ft_strdup(comand));
@@ -51,7 +53,7 @@ char	*set_comand_path(char **splited_path, char *comand)
 			real_path = ft_strjoin(aux_path, comand);
 			free(aux_path);
 			aux_path = NULL;
-			if (access(real_path, X_OK) == 0)
+			if (real_path && access(real_path, X_OK) == 0)
 				return (real_path);
 			free(real_path);
 			real_path = NULL;
@@ -73,7 +75,7 @@ void	execute_path(char **splited_arg, char *real_path, char **envp)
 	{
 		ft_free_array(splited_arg);
 		free(real_path);
-		perror(RED"zsh: comand not found"RESET);
+		perror(RED"Error: comand not found"RESET);
 		exit(127);
 	}
 }

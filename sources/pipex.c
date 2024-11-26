@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:47:31 by dgargant          #+#    #+#             */
-/*   Updated: 2024/11/26 10:25:58 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:40:57 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void	child_proc_one(int *pipe_fd, char **argv, char **envp)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
-		perror(RED"Error: Open error"RESET);
 		close(pipe_fd[FD_WR]);
+		ft_free_array(splited_argv);
+		perror(RED"Error: Open error"RESET);
 		exit(EXIT_FAILURE);
 	}
 	dup2(fd, STDIN_FILENO);
@@ -53,6 +54,7 @@ void	child_proc_two(int *pipe_fd, char **argv, char **envp)
 	if (fd < 0)
 	{
 		close(pipe_fd[FD_RD]);
+		ft_free_array(splited_argv);
 		perror(RED"Error: Open error"RESET);
 		exit(EXIT_FAILURE);
 	}
@@ -102,7 +104,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (pipe(pipe_fd) == -1)
 		{
-			perror(RED"Error: creating the pipe failed"RESET);	
+			perror(RED"Error: creating the pipe failed"RESET);
 			exit(EXIT_FAILURE);
 		}
 		parent_proc(argv, pipe_fd, envp, status);
