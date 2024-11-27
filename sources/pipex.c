@@ -6,7 +6,7 @@
 /*   By: dgargant <dgargant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:47:31 by dgargant          #+#    #+#             */
-/*   Updated: 2024/11/26 12:40:57 by dgargant         ###   ########.fr       */
+/*   Updated: 2024/11/27 10:20:29 by dgargant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	child_proc_one(int *pipe_fd, char **argv, char **envp)
 	{
 		close(pipe_fd[FD_WR]);
 		ft_free_array(splited_argv);
+		free(real_path);
 		perror(RED"Error: Open error"RESET);
 		exit(EXIT_FAILURE);
 	}
@@ -55,6 +56,7 @@ void	child_proc_two(int *pipe_fd, char **argv, char **envp)
 	{
 		close(pipe_fd[FD_RD]);
 		ft_free_array(splited_argv);
+		free(real_path);
 		perror(RED"Error: Open error"RESET);
 		exit(EXIT_FAILURE);
 	}
